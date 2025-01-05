@@ -11,7 +11,7 @@ class ProductController
     public function index()
     {
         $products = Product::all();
-        Response::json($products);
+        return Response::json($products);
     }
 
     /*public function store($data)

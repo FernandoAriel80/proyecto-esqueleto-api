@@ -19,7 +19,7 @@ Aun esta en desarrollo, pero espero actualizarlo acá tanto.
 1. Clonar el repositorio:
     ```bash
     git clone https://github.com/FernandoAriel80/proyecto-esqueleto-api.git
-    cd distribuidora-back
+    cd proyecto-esqueleto-api
     ```
 ## Requisitos Previos
 
@@ -40,31 +40,28 @@ Asegúrate de tener instalados los siguientes programas:
     - Linux:
     - Dar permisos de ejecución (solo la primera vez)
     ```bash
-    chmod +x start.sh     
-    ```
-    - Ejecutar el script en el puerto http://localhost:8000
-    ```bash
-    ./start.sh         
+    chmod +x start.sh   
+    ./start.sh    
     ```
 
     - Windows (con Git Bash o WSL):
-    - Ejecutar el script en el puerto http://localhost:8000
     ```bash
     ./start.sh         
     ```
 
     - Windows (con PowerShell):
     - Convierte el script a un archivo .ps1 y usa:
-    - Ejecutar el script en el puerto http://localhost:8000
     ```bash
     .\start.ps1         
     ```
 
-    El backend se ejecutará en `http://127.0.0.1:8000`, para modo local o desarrollo.
+    El script se ejecutará en `http://localhost:8000`, para modo local o desarrollo.
 
 ## Arquitectura del Proyecto
 
 **Carpetas y Archivo:**
+
+```plaintext
 /mi-proyecto
     /App
         /Controller
@@ -92,6 +89,7 @@ Asegúrate de tener instalados los siguientes programas:
     autoload.php
     README.md
     start.sh
+```
 
 **Vista Archivos de Uso:**
 
@@ -102,6 +100,8 @@ Asegúrate de tener instalados los siguientes programas:
 ## Documentación
 
 **Ejemplo de Uso en Model:**
+
+- /App/Models/Tables/User.php
 
 ```php
 <?php
@@ -122,6 +122,8 @@ Asegúrate de tener instalados los siguientes programas:
 
 **Ejemplo de Uso en Controller:**
 
+- /App/Controllers/UserController.php
+
 ```php
 <?php
 
@@ -137,7 +139,7 @@ Asegúrate de tener instalados los siguientes programas:
         public function index()
         {
             $users = User::all();
-            Response::json($users);
+            return Response::json($users);
         }
 
         public function store()
@@ -146,15 +148,17 @@ Asegúrate de tener instalados los siguientes programas:
             $data = $request->all();
 
             if (empty(trim($data['nombre'])) || empty(trim($data['apellido']))) {
-                Response::json(['error' => 'Nombre y apellido son requeridos'], 400);
+                return Response::json(['error' => 'Nombre y apellido son requeridos'], 400);
             }
             User::create($data);
-            Response::json(['message' => 'Usuario creado con éxito']);
+            return Response::json(['message' => 'Usuario creado con éxito']);
         }
     }
 
 ```
 **Ejemplo de Uso en Routes:**
+
+- en /routes/api.php
 
 ```php
 <?php

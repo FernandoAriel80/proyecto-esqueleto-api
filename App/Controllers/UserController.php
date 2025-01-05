@@ -12,7 +12,7 @@ class UserController
     public function index()
     {
         $users = User::all();
-        Response::json($users);
+        return Response::json($users);
     }
 
     public function store()
@@ -21,9 +21,9 @@ class UserController
         $data = $request->all();
         
         if (empty(trim($data['nombre'])) || empty(trim($data['apellido']))) {
-            Response::json(['error' => 'Nombre y apellido son requeridos'], 400);
+            return Response::json(['error' => 'Nombre y apellido son requeridos'], 400);
         }
         User::create($data);
-        Response::json(['message' => 'Usuario creado con éxito']);
+        return Response::json(['message' => 'Usuario creado con éxito']);
     }
 }
