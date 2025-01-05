@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace app\Controllers;
 
-use App\Models\Tables\User;
-use App\Core\Request;
-use App\Core\Response;
+use app\Models\Tables\User;
+use app\Core\Request;
+use app\Core\Response;
 
 class UserController
 {

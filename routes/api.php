@@ -1,8 +1,8 @@
 <?php
 
-use App\Core\Router;
-use App\Controllers\UserController;
-use App\Controllers\ProductController;
+use app\Core\Router;
+use app\Controllers\UserController;
+use app\Controllers\ProductController;
 
 
 $userController = new UserController();

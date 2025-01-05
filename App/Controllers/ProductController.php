@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controllers;
+namespace app\Controllers;
 
-use App\Models\Tables\Product;
-use App\Core\Response;
+use app\Models\Tables\Product;
+use app\Core\Response;
 
 class ProductController 
 {

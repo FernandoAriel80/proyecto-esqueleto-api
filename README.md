@@ -63,7 +63,7 @@ Asegúrate de tener instalados los siguientes programas:
 
 ```plaintext
 /mi-proyecto
-    /App
+    /app
         /Controller
             UserController.php
         /Core
@@ -93,21 +93,21 @@ Asegúrate de tener instalados los siguientes programas:
 
 **Vista Archivos de Uso:**
 
-- Controllers   /App/Controllers
-- Models    /App/Models/Tables
+- Controllers   /app/Controllers
+- Models    /app/Models/Tables
 - routes    /routes
 
 ## Documentación
 
 **Ejemplo de Uso en Model:**
 
-- /App/Models/Tables/User.php
+- /app/Models/Tables/User.php
 
 ```php
 <?php
-    namespace App\Models\Tables;
+    namespace app\Models\Tables;
 
-    use App\Models\Model;
+    use app\Models\Model;
 
     class User extends Model
     {
@@ -122,16 +122,16 @@ Asegúrate de tener instalados los siguientes programas:
 
 **Ejemplo de Uso en Controller:**
 
-- /App/Controllers/UserController.php
+- /app/Controllers/UserController.php
 
 ```php
 <?php
 
-    namespace App\Controllers;
+    namespace app\Controllers;
 
-    use App\Models\Tables\User;
-    use App\Core\Request;
-    use App\Core\Response;
+    use app\Models\Tables\User;
+    use app\Core\Request;
+    use app\Core\Response;
 
     class UserController
     {
@@ -162,8 +162,8 @@ Asegúrate de tener instalados los siguientes programas:
 
 ```php
 <?php
-    use App\Core\Router;
-    use App\Controllers\UserController;
+    use app\Core\Router;
+    use app\Controllers\UserController;
 
     $userController = new UserController();
 
