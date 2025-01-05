@@ -12,6 +12,7 @@ Aun esta en desarrollo, pero espero actualizarlo acá tanto.
 - [Requisitos Previos](#requisitos-previos)
 - [Uso](#uso)
 - [Arquitectura del Proyecto](#arquitectura-del-proyecto)
+- [Documentación ](#documentación)
 
 ## Instalación
 
@@ -97,3 +98,71 @@ Asegúrate de tener instalados los siguientes programas:
 - Controllers   /App/Controllers
 - Models    /App/Models/Tables
 - routes    /routes
+
+## Documentación
+
+**Ejemplo de Uso en Model:**
+
+```php
+<?php
+    namespace App\Models\Tables;
+
+    use App\Models\Model;
+
+    class User extends Model
+    {
+        protected static $table = 'users';
+
+        public function __construct()
+        {
+            parent::__construct(self::$table);
+        }
+    }
+```
+
+**Ejemplo de Uso en Controller:**
+
+```php
+<?php
+
+    namespace App\Controllers;
+
+    use App\Models\Tables\User;
+    use App\Core\Request;
+    use App\Core\Response;
+
+    class UserController
+    {
+
+        public function index()
+        {
+            $users = User::all();
+            Response::json($users);
+        }
+
+        public function store()
+        {
+            $request = new Request();
+            $data = $request->all();
+
+            if (empty(trim($data['nombre'])) || empty(trim($data['apellido']))) {
+                Response::json(['error' => 'Nombre y apellido son requeridos'], 400);
+            }
+            User::create($data);
+            Response::json(['message' => 'Usuario creado con éxito']);
+        }
+    }
+
+```
+**Ejemplo de Uso en Routes:**
+
+```php
+<?php
+    use App\Core\Router;
+    use App\Controllers\UserController;
+
+    $userController = new UserController();
+
+    Router::get('/',[$userController, 'index']);
+    Router::post('/carga-usuario',[$userController,'store']);
+```
