@@ -14,14 +14,33 @@ class Model{
         self::$table = $table;
     }
 
-    
-    public static function all() {
-      
+     # El metodo all() trae todo valor de la tabla a cosultar, tiene la utilidad de agregar campos a elegir por ejemplo all(["name","last_name"]) esto traeria solamente los datos de nombre y apellido de la tabla a consultar
+    public static function all(array $params = []) {
         if (self::$db === null) {
             self::$db = Database::getInstance()->getConnection();
         }
-
-        $stmt = self::$db->prepare("SELECT * FROM " . static::$table);
+        $query = "";
+        if (empty($params)) {
+          $query = "SELECT * FROM ";
+        }else {
+          $query = "SELECT ";
+          $query .= implode(', ', $params);
+          $query .= " FROM ";
+        }
+        $stmt = self::$db->prepare($query . static::$table);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public static function where(string $column, string $operator, string $value){
+      if (self::$db === null) {
+            self::$db = Database::getInstance()->getConnection();
+        }
+      $query = "SELECT * from user WHERE ";
+      if ($operator == "=") {
+          $query .= "{$column} = '{$value}'";
+      }
+      $stmt = self::$db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

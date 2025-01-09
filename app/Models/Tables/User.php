@@ -5,7 +5,7 @@ use app\Models\Model;
 
 class User extends Model
 {
-    protected static $table = 'users';
+    protected static $table = 'user';
     
     public function __construct()
     {

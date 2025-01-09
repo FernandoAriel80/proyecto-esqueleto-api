@@ -11,10 +11,11 @@ class UserController
 
     public function index()
     {
-        $users = User::all();
+       // $users = User::all();
+       $users = User::where("nombre","=","Juan");
         return Response::json($users);
     }
-
+    
     public function store()
     {
         $request = new Request();
