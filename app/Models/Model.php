@@ -1,4 +1,6 @@
 <?php
+
+#query builder
 namespace app\Models;
 use app\Core\Database;
 use PDO;
@@ -14,6 +16,7 @@ class Model{
         self::$table = $table;
     }
 
+    
      # El metodo all() trae todo valor de la tabla a cosultar, tiene la utilidad de agregar campos a elegir por ejemplo all(["name","last_name"]) esto traeria solamente los datos de nombre y apellido de la tabla a consultar
     public static function all(array $params = []) {
         if (self::$db === null) {
