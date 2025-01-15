@@ -12,7 +12,8 @@ class UserController
     public function index()
     {
         //$users = User::all();
-       $users = User::where("nombre", "=", "Juan")->get();
+       //$users = User::where("id", "<", "5")->where("id",">","1")->get();
+       $users = User::where("id", "<", "5")->where("id",">","1")->get();
 
         return Response::json($users);
     }

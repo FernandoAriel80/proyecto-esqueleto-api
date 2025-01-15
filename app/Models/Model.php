@@ -8,21 +8,23 @@ use PDOException;
 class Model {
     private static $db; 
     private static $table; 
-    private $conditions = []; 
+    private $conditions = [];
+    private static $instance;
 
     public function __construct($table) {
         self::$table = $table;
     }
 
     public static function where(string $column, string $operator, string $value) {
-        $instance = new static();
-
+        if (!self::$instance) {
+            self::$instance = new static();
+        }
         $allowedOperators = ['=', '<', '>', '>=', '<='];
         if (in_array($operator, $allowedOperators)) {
-            $instance->conditions[] = "{$column} {$operator} '{$value}'";
+            self::$instance->conditions[] = "{$column} {$operator} '{$value}'";
         }
 
-        return $instance;
+        return self::$instance;
     }
 
     public function get() {
@@ -30,12 +32,10 @@ class Model {
             self::$db = Database::getInstance()->getConnection();
         }
         $query = "SELECT * FROM " . self::$table;
-
-        // Agregar condiciones, si las hay
         if (!empty($this->conditions)) {
-            $query .= " WHERE " . implode(" AND ", $this->conditions);
+          $query .= " WHERE " . implode(" AND ", $this->conditions);
         }
-
+        
         $stmt = self::$db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
